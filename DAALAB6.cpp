@@ -1,5 +1,4 @@
-// Prim's Algorithm - Minimum Spanning Tree
-// Time complexity: O(E log V) using a min-heap (priority queue)
+
 
 #include <iostream>
 #include <vector>
