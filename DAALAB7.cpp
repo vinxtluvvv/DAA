@@ -1,54 +1,29 @@
+#include <stdio.h>
 
+long long powerFast(int x, int n)
+{
+    if (n == 0)
+        return 1;
 
-#include <iostream>
-using namespace std;
+    long long half = powerFast(x, n / 2);
 
-// Simple approach
-long long powerSimple(long long base, long long exp) {
-    long long result = 1;
-    for (long long i = 0; i < exp; i++)
-        result *= base;
-    return result;
+    if (n % 2 == 0)
+        return half * half;
+    else
+        return x * half * half;
 }
 
-// Fast approach (exponentiation by squaring), handles negative exponents too
-double fastPower(double base, long long exp) {
-    if (exp < 0) {
-        base = 1.0 / base;
-        exp = -exp;
-    }
-    double result = 1.0;
-    while (exp > 0) {
-        if (exp & 1)          // if current bit is set, multiply result by base
-            result *= base;
-        base *= base;         // square the base
-        exp >>= 1;            // move to next bit
-    }
-    return result;
-}
+int main()
+{
+    int x, n;
 
-// Modular version: (base^exp) % mod, useful for large numbers
-long long powerMod(long long base, long long exp, long long mod) {
-    long long result = 1;
-    base %= mod;
-    while (exp > 0) {
-        if (exp & 1)
-            result = (result * base) % mod;
-        base = (base * base) % mod;
-        exp >>= 1;
-    }
-    return result;
-}
+    printf("Enter base: ");
+    scanf("%d", &x);
 
-int main() {
-    double base;
-    long long exp;
-    cout << "Enter base and exponent: ";
-    cin >> base >> exp;
+    printf("Enter exponent: ");
+    scanf("%d", &n);
 
-    cout << base << "^" << exp << " = " << fastPower(base, exp) << endl;
+    printf("%d^%d = %lld\n", x, n, powerFast(x, n));
 
-    cout << "2^10 (simple)  = " << powerSimple(2, 10) << endl;
-    cout << "3^200 mod 1000000007 = " << powerMod(3, 200, 1000000007) << endl;
     return 0;
 }
